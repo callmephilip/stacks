@@ -55,7 +55,6 @@ define(['jquery','underscore',"soundcloud", "router",
 
         Application.prototype = {
             run : function(whenCannotRun){
-                
                 try{
                     localStorage.setItem("can-i-haz-local-storage",1);
                 }catch(e){
@@ -71,6 +70,8 @@ define(['jquery','underscore',"soundcloud", "router",
                 }
             },
 
+
+            //TODO: see if this duplicates testing in app/scripts/app
             testing : function(){
                 return $("#mocha").length !== 0;
             }

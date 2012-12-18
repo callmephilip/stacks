@@ -1,7 +1,5 @@
 define(['backbone'],
     function(Backbone) {
-
-
         var ApplicationRouter = Backbone.Router.extend({
 
             routes: {
