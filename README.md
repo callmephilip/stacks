@@ -1,10 +1,10 @@
 # SoundCloud Dev Challenge turned a weekend project
 
-'Stacks' is a SoundCloud based playlist manager. 
+'Stacks' is a SoundCloud based playlist manager. Live demo is [here](http://callmephilip.github.com/stacks/). 
 
 ## Project structure
 
-Fairly standard yeoman setup. When runnig locally, make sure you have a symbolic to app/scripts from the test directory
+Fairly standard yeoman setup. When runnig locally, make sure to link to app/scripts from the test directory
 
 ```
 ln -s app/scripts test/scripts
@@ -27,7 +27,7 @@ yeoman test
 * [require.js](https://github.com/jrburke/requirejs) for AMD
 * [Backbone.js](https://github.com/documentcloud/backbone) for MVC
 * [Backbone.localstorage](https://github.com/jeromegn/Backbone.localStorage) for localStorage based models
-* [Handlebars](https://github.com/wycats/handlebars.js) for templates and belated Movember support
+* [Handlebars](https://github.com/wycats/handlebars.js) for templates and belated Movember
 * Patched version of [jquery.autocomplete](https://github.com/callmephilip/jQueryAutocompletePlugin)
 * [jquery.jeditable](https://github.com/tuupola/jquery_jeditable) for in-place editting
 * [SoundCloud JS sdk](https://github.com/soundcloud/soundcloud-javascript) for the tunes and OAuth
