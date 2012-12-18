@@ -5,7 +5,7 @@ define(["jquery", "underscore", "backbone", "views/controls/search.result", "jqu
         
         autocompleteOptions : {
             minChars: 1,
-            formatItem: function(data, i, n, value) {
+            formatItem: function(data) {
                 return $(new SearchResultView(data).render()).html();
             }
         },

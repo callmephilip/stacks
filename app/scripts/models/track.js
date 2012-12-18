@@ -27,7 +27,7 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             var currentlyPlaying;
 
             if(typeof this.collection !== 'undefined'){
-                var currentlyPlaying = _.find(this.collection.models, function(m){
+                currentlyPlaying = _.find(this.collection.models, function(m){
                     return m.isPlaying();
                 });
             }
@@ -131,7 +131,7 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             } else {
                 dfd.resolve(this.models);
             }   
-            return dfd.promise()     
+            return dfd.promise();     
         },
 
         getTracksForPlaylist : function(playlistId){
@@ -158,7 +158,7 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
                             return m.get("playlistOrder") > order; 
                         }), 
                         function(t){ 
-                            return t.get("playlistOrder") 
+                            return t.get("playlistOrder"); 
                         }
                     );
 

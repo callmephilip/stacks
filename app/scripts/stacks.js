@@ -1,11 +1,9 @@
-define(['jquery','underscore','backbone', "soundcloud", "router", 
+define(['jquery','underscore',"soundcloud", "router", 
     "views/screens/login", "views/screens/stacks", "models/playlist"],
-    function($,_, Backbone, SC, ApplicationRouter,LoginView,StacksView, Playlist){
+    function($,_,SC, ApplicationRouter,LoginView,StacksView, Playlist){
 
         SC.initialize(
-            (window.location.host.indexOf("localhost") !== -1) 
-
-            ? 
+            (window.location.host.indexOf("localhost") !== -1) ? 
 
             // Dev
             {

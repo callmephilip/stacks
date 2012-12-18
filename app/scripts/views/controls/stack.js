@@ -1,8 +1,7 @@
 define(["jquery", "underscore", "backbone", "handlebars", 
     "text!templates/controls/stack.html", 
-    "models/track",
     "views/controls/searchbar", "views/controls/track.list", "jquery.jeditable"],
-    function($, _, Backbone, Handlebars, stackTemplate, Tracks, SearchBarView, TrackListView){
+    function($, _, Backbone, Handlebars, stackTemplate, SearchBarView, TrackListView){
 
         function plesantSurprise(){
             return "pleasant-surprise-" + 
@@ -46,7 +45,7 @@ define(["jquery", "underscore", "backbone", "handlebars",
                 }
             },
 
-            onSearchResultSelected : function(e,data,title){ 
+            onSearchResultSelected : function(e,data){ 
                 this.playlist.addTrack(
                     data.id, data.title, data.user_username, 
                     data.artwork_url ? data.artwork_url : data.user_avatar_url
@@ -84,12 +83,12 @@ define(["jquery", "underscore", "backbone", "handlebars",
 
                 this.searchbar.render(this.$(".search"));
                 
-                this.$(".title").editable(_.bind(function(value, settings){
+                this.$(".title").editable(_.bind(function(value){
                     this.playlist.set({ title : value }).save();
                     return value;
                 },this), { onblur : 'submit', select : true });
 
-                this.$(".description").editable(_.bind(function(value, settings){
+                this.$(".description").editable(_.bind(function(value){
                     this.playlist.set({ description : value }).save();
                     return value;
                 },this), { onblur : 'submit', select : true  });

@@ -12,7 +12,7 @@ define(["underscore", "models/soundcloud.base"], function(_,SouncloudModels){
                     title : t.title,
                     user_avatar_url : t.user.avatar_url,
                     user_username : t.user.username
-                }
+                };
             });
         }
     });

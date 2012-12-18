@@ -1,5 +1,5 @@
-define(['jquery','underscore','backbone','handlebars'],
-    function($,_,Backbone,Handlebars) {
+define(['backbone'],
+    function(Backbone) {
 
 
         var ApplicationRouter = Backbone.Router.extend({
@@ -14,7 +14,6 @@ define(['jquery','underscore','backbone','handlebars'],
 
             run : function(){
                 if(!this.started){
-                    //Backbone.history.start({pushState: true});
                     Backbone.history.start();
                     this.started = true;
                 }

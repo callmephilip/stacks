@@ -9,7 +9,7 @@ define(["jquery", "underscore","backbone", "models/track", "backbone.localStorag
 
                 var currentOrder = tracks.length === 0 ? 0 :
                     _.max(_.map(tracks, function(t){
-                        return parseInt(t.get("playlistOrder"));
+                        return parseInt(t.get("playlistOrder"),10);
                     })); 
 
                 var track = Track.get().addTrack(scId, title, username, artworkUrl, this.get("id"), currentOrder + 1);
