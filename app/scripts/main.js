@@ -1,6 +1,5 @@
 /*
     Require setup + entry point for the application
-    Delegage
 */
 
 require.config({
