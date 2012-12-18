@@ -42,6 +42,8 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/stacks
             },
 
             render : function(){
+                $("header").removeClass("hidden");
+                
                 $(this.el).html(this.template());
                 
                 _.each(this.playlists.models, _.bind(function(pl){
