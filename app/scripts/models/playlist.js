@@ -27,27 +27,6 @@ define(["jquery", "underscore","backbone", "models/track", "backbone.localStorag
             return new Track.Collection().getTracksForPlaylist(this.get("id"));
         },
 
-        // getNextTrack : function(track){
-
-        //     var dfd = $.Deferred(), 
-        //         order = typeof track !== 'undefined' ? track.get("playlistOrder") : 0;
-             
-        //     $.when(this.getTracks()).done(function(tracks){
-        //         var nextTracks = _.sortBy(
-        //             _.filter(tracks.models,function(m){ 
-        //                 return m.get("playlistOrder") > order; 
-        //             }), 
-        //             function(t){ 
-        //                 return t.get("playlistOrder") 
-        //             }
-        //         );
-
-        //         dfd.resolve(nextTracks.length !== 0 ? nextTracks[0] : null);
-        //     });
-
-        //     return dfd.promise();
-        // },
-
         destroy : function(options){
 
             $.when(new Track.Collection().getTracksForPlaylist(this.get("id")))

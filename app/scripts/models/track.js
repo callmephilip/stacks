@@ -7,8 +7,6 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             state : 'idle' // supported states : idle, playing, paused
         },
 
-        initialize : function(){},
-
         isIdle : function(){
             return this.get('state') === 'idle';
         },
@@ -175,8 +173,6 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
     });
 
     var __tracks = new TrackCollection();
-
-    console.log('creating tracks');
 
     return {
         Collection : TrackCollection,
