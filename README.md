@@ -1,4 +1,4 @@
-# SoundCloud Dev Challenge turned a weekend project
+# SoundCloud Dev Challenge
 
 'Stacks' is a SoundCloud based playlist manager. Live demo is [here](http://callmephilip.github.com/stacks/). 
 
