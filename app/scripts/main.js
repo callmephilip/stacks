@@ -1,3 +1,8 @@
+/*
+    Require setup + entry point for the application
+    Delegage
+*/
+
 require.config({
 
     shim: {
@@ -29,6 +34,6 @@ require.config({
 
 });
 
-require(['app'], function(app) {
-    app.run();
+require(['stacks'], function(Application) {
+    Application.getApplication().run();
 });
