@@ -1,0 +1,50 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Mocha Spec Runner</title>
+  <link rel="stylesheet" href="lib/mocha/mocha.css">
+</head>
+<body>
+  <div id="sandbox" style="display:none;"></div>
+
+  <div id="mocha"></div>
+
+  <script src="scripts/vendor/jquery.min.js"></script>
+  <script src="lib/mocha/mocha.js"></script>
+  <script src="lib/chai.js"></script>
+  <script src="lib/chai-jquery.js"></script>
+  <script src="lib/sinon.js"></script>
+  <script src="lib/sinon-chai.js"></script>
+  <script data-main="scripts/main.js" src="scripts/vendor/require.js"></script>
+
+
+
+  <script>
+    mocha.setup({ ui : "bdd", ignoreLeaks : true});
+    expect = chai.expect;
+
+    var specs = [
+        '../spec/routers/router.spec',
+        '../spec/views/screens/login.spec',
+        '../spec/views/screens/stacks.spec',
+        '../spec/views/controls/stack.spec',
+        '../spec/views/controls/track.spec',
+        '../spec/views/controls/track.list.spec',
+        '../spec/stacks.spec',
+        '../spec/models/soundcloud.base.spec',
+        '../spec/models/soundcloud.search.spec',
+        '../spec/models/playlist.spec',
+        '../spec/models/track.spec'
+    ];
+
+    require(specs,function(){
+        setTimeout(function(){
+            require(["../runner/mocha"]);
+        },100);
+    });
+
+  </script>
+
+</body>
+</html>
