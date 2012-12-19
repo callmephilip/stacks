@@ -106,7 +106,12 @@ define(["jquery", "underscore", "backbone", "handlebars",
                 if(confirm('Easy broski. This will kill your lovely stack and all the tunes in it (and yeah, I have not implemented the undo). Proceed?')){
                     this.trackListView.stopAllMusic();
                     this.playlist.destroy();
-                    $(this.el).remove();
+                    
+                    //plug in a little removal animation before removing stack from the container
+                    $(this.el).addClass("removing");
+                    setTimeout(_.bind(function(){
+                        $(this.el).remove();    
+                    },this),300);
                 }
             },
 
