@@ -4,7 +4,7 @@
 
 ## Project structure
 
-Fairly standard yeoman setup. When runnig locally, make sure to link to app/scripts from the test directory
+Fairly standard [yeoman](http://yeoman.io/) setup. When runnig locally, make sure to link to app/scripts from the test directory
 
 ```
 ln -s app/scripts test/scripts
