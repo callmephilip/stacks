@@ -43,10 +43,6 @@ define(["jquery", "underscore", "router"],function($,_,ApplicationRouter){
                 checkNavigation("/anything", "route:landing", done);
             });
 
-            it('can navigate to /login', function(done){
-                checkNavigation("/login", "route:login", done); 
-            });
-
             it('can navigate to /stacks', function(done){
                 checkNavigation("/stacks", "route:stacks", done); 
             });            
