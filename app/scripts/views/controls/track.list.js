@@ -1,3 +1,9 @@
+/*
+    
+    Tracklist View is rendered within a stack. 
+    It contains Track views 
+*/
+
 define(["jquery","backbone","handlebars", 
     "models/track", "views/controls/track","text!templates/controls/track.list.html"],
     function($,Backbone,Handlebars,Tracks,TrackView,trackListTemplate){
@@ -14,9 +20,9 @@ define(["jquery","backbone","handlebars",
             if(typeof attributes.playlistId === 'undefined'){
                 throw new Error("playlistId required");
             }
-
             this.playlistId = attributes.playlistId;
             
+            //keep an eye on the central track repository
             Tracks.get().on("add", this.onTrackAdded, this);
             Tracks.get().on("remove", this.onTrackRemoved, this);
             Tracks.get().on("change", this.onTrackChanged, this);
@@ -24,6 +30,14 @@ define(["jquery","backbone","handlebars",
             this.updateTracks(true);
         },
 
+        /*
+            TODO: move this into a separate model module
+
+            TracklistView maintains a local list of track models
+            which must be updated when things change in the central repository
+
+            if rerender is true, the view will render itself
+        */
         updateTracks : function(rerender){
             $.when(Tracks.get().getTracksForPlaylist(this.playlistId)).done(_.bind(function(tracks){
                 this.tracks = tracks;
@@ -33,6 +47,9 @@ define(["jquery","backbone","handlebars",
             }, this));  
         },
 
+        /*
+            This method is invoked from the outside (stack view) to ask for play all/pause 
+        */
         onPlayAllToggle : function(){
             var currentTrack = this.getCurrentTrack();
             if(typeof currentTrack === 'undefined'){
@@ -60,17 +77,26 @@ define(["jquery","backbone","handlebars",
             });
         },
 
+        /*
+            when new track is added, we need to display it
+        */
         onTrackAdded : function(m){
             if(m.get("playlistId") === this.playlistId){
                 $(this.el).append(new TrackView({ model : m }).render());
-                this.updateTracks();
+                this.updateTracks(false);
             }
         },
 
+        /*
+            update internal track storage    
+        */
         onTrackRemoved : function(){
             this.updateTracks(false);
         },
 
+        /*
+            when track's state changes, propagate this to parent views 
+        */
         onTrackChanged : function(m){
             if(m.get("playlistId") === this.playlistId){
                 if(m.hasChanged("state")){
