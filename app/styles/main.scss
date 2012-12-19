@@ -127,11 +127,15 @@ header{
   $stack-width:320px; 
   $stack-height:400px;
 
-  .add {
-      position: absolute;
-      top: 0; left: 0; right: 0;
+  .add-stack-wrapper{
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 20px;
+    .add {
       @include icon-add();
-      height: 60px; 
+      padding:15px;
+      cursor: pointer;
+    }
   }
 
   &.empty{
@@ -145,7 +149,7 @@ header{
 
   ul{
 
-    padding-top: 50px;
+    padding-top: 64px;
 
     li.no-stacks { 
       display: none;
