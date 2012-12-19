@@ -1,3 +1,8 @@
+/*
+	Initial login screen
+		- triggers "login" event when login button is clicked
+*/
+
 define(["jquery","backbone", "handlebars", "text!templates/login.html"],
 	function($, Backbone, Handlebars, loginTemplate){
 

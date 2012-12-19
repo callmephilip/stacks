@@ -1,3 +1,8 @@
+/*
+    Track views is rendered within a track list and it represents a track  
+    that can be played, paused and deleted
+*/
+
 define(["jquery","backbone","handlebars", "text!templates/controls/track.html"],
     function($,Backbone,Handlebars, trackTemplate){
 
@@ -17,9 +22,13 @@ define(["jquery","backbone","handlebars", "text!templates/controls/track.html"],
                 throw new Error("Model required");
             }
 
+            //keep an eye on the underlying model
             this.model.on("change", this.onModelChanged, this);
         },
 
+        /*
+            Adjust track display based on the change in the state of the underlying model
+        */
         onModelChanged : function(){
             if(this.model.hasChanged("state")){
                 if(this.model.isPlaying()){
@@ -30,11 +39,17 @@ define(["jquery","backbone","handlebars", "text!templates/controls/track.html"],
             }
         },
 
+        /*
+            Play/Pause
+        */
         onTogglePlayback : function(){
             $(this.el).toggleClass("playing");        
             this.model.togglePlayback();
         },
 
+        /*
+            Delete underlying track data and remove the element from the container
+        */
         onDelete : function(){
             this.model.destroy();
             $(this.el).remove();

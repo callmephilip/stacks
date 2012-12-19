@@ -3,6 +3,7 @@ $img_pause : '../images/icons/pause.png';
 $img_add : '../images/icons/add.png';
 $img_delete : '../images/icons/delete.png';
 $img_search : '../images/icons/search.png';
+$img_soundcloud : '../images/icons/soundcloud.png';
 $img_bg : '../images/bg/norwegian_rose.png';;
 
 
@@ -54,7 +55,7 @@ $img_bg : '../images/bg/norwegian_rose.png';;
 
 @mixin icon-search-small(){
     @include icon-base(20px,20px);
-    background-image:url($img_search);
+    background-image:url($img_soundcloud);
     background-position: 98% 5px;
 }
 

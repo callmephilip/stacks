@@ -1,3 +1,7 @@
+/*
+    Search result is a view rendered in the dropdown of the search bar
+*/
+
 define(["jquery","backbone","handlebars", "text!templates/controls/search.result.html"],
     function($,Backbone,Handlebars, searchResultTemplate){
 

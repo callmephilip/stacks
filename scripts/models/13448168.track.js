@@ -1,13 +1,24 @@
 define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"], 
     function($,_,Backbone,SC){
 
+    /*
+        Track model
+            - stores track data
+                - SC id  
+                - title
+                - username of the author 
+                - artworkUrl, 
+                - id of the playlist
+                - position within the playlist
+            - knows how to play/pause the music
+            - can automatically figure out what the next song is
+    */
+
     var Track = Backbone.Model.extend({
         
         defaults : {
             state : 'idle' // supported states : idle, playing, paused
         },
-
-        initialize : function(){},
 
         isIdle : function(){
             return this.get('state') === 'idle';
@@ -21,13 +32,24 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             return this.get('state') === 'paused';
         },
 
+
+        /*
+            Toggles playback on the track
+                - if the track is already playing, pause it
+                - if the track is paused, resume
+                - otherwise load sound data and play it
+
+            This method makes sure there's only one track playing at any time
+            (TODO: this can actually be moved to the TrackCollection which can monitor state
+            changes for tracks and adjust playback accordingly) 
+        */
         togglePlayback : function(){
 
             //see if there's another sound playing
             var currentlyPlaying;
 
             if(typeof this.collection !== 'undefined'){
-                var currentlyPlaying = _.find(this.collection.models, function(m){
+                currentlyPlaying = _.find(this.collection.models, function(m){
                     return m.isPlaying();
                 });
             }
@@ -57,6 +79,9 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             }
         },
 
+        /*
+            Load sound data for streaming
+        */
         getSound : function(){
             var dfd = new $.Deferred();
             SC.stream("/tracks/" + this.get("scId"), function(sound){
@@ -65,12 +90,19 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             return dfd.promise();
         },
 
+        /*
+            Once sound data is loaded, start playing music + update tracks internal status
+        */
         onSoundLoaded : function(sound){
             this.sound = sound;
             this.sound.play({onfinish:_.bind(this.onSoundFinished,this)});
             this.set({ state : 'playing' });
         },
 
+        /*
+            When the song ends, attempt to locate the next song based on the playlist 
+            and schedule its playback 
+        */
         onSoundFinished : function(){
             this.stop();
 
@@ -86,6 +118,9 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
 
         },
 
+        /*
+            The laughing time is over
+        */
         stop : function(){
             
             if(typeof this.sound !== 'undefined'){
@@ -97,6 +132,9 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
         
         },
 
+        /*
+            Make sure the playback is stopped before deleting the track
+        */
         destroy : function(options){
             if(this.isPlaying()){
                 this.stop();
@@ -106,11 +144,21 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
         }
     });  
 
+    /*
+        TrackCollection keeps tracks all cosy together
+            - creates new tracks
+            - groups tracks by playlist
+            - finds next track in the playlist
+    */
 
     var TrackCollection = Backbone.Collection.extend({
         model : Track,
         localStorage: new Backbone.LocalStorage("stacks::tracks"),
     
+        /*
+            Create new track
+                - playlist related data is provided by the playlist model
+        */
         addTrack : function(id, title, username, artworkUrl, playlistId, playlistOrder){
             return this.create({ 
                 scId : id, 
@@ -122,6 +170,11 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             }, {wait : true});    
         },
 
+        /*
+            Convenience method around fetch
+                - fetch tracks once
+                - on subsequent requests return internal models list
+        */
         getTracks : function(){
             var dfd = $.Deferred();
             if(this.models.length === 0){
@@ -131,9 +184,13 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             } else {
                 dfd.resolve(this.models);
             }   
-            return dfd.promise()     
+            return dfd.promise();     
         },
 
+        /*
+            Only get tracks within the given playlist
+                - the playlist is identified by its id 
+        */
         getTracksForPlaylist : function(playlistId){
             var dfd = $.Deferred();
 
@@ -146,6 +203,9 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
             return dfd.promise();
         },
 
+        /*
+            Get track that follows, undefined if none 
+        */
         getNextTrack : function(track){
 
             var order = typeof track !== 'undefined' ? track.get("playlistOrder") : 0;
@@ -158,7 +218,7 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
                             return m.get("playlistOrder") > order; 
                         }), 
                         function(t){ 
-                            return t.get("playlistOrder") 
+                            return t.get("playlistOrder"); 
                         }
                     );
 
@@ -174,17 +234,22 @@ define(["jquery", "underscore","backbone","soundcloud","backbone.localStorage"],
         }
     });
 
+    // keep only one instance of the track repository
     var __tracks = new TrackCollection();
-
-    console.log('creating tracks');
 
     return {
         Collection : TrackCollection,
     
+        /*
+            Get access to the track repository
+        */
         get : function(){
             return __tracks;
         },
 
+        /*
+            shortcut for get().addTrack
+        */
         addTrack : function(id, title, username, artworkUrl, playlistId, playlistOrder){
             return __tracks.addTrack(id, 
                 title, username, artworkUrl, playlistId, playlistOrder);
