@@ -1,8 +1,14 @@
+/*
+    SoundCloud search
+        -- currently filters search results to only include tracks 
+*/
+
 define(["underscore", "models/soundcloud.base"], function(_,SouncloudModels){
 
     var SoundCloudSearchCollection = SouncloudModels.Collection.extend({
         
         parse: function(response) {
+            // tracks only, por favor
             return _.map(_.filter(response.collection, function(r){
                 return r.kind === "track";
             }),function(t){
