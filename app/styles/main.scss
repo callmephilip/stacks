@@ -287,17 +287,18 @@ header{
         @include box-shadow(inset 1px 1px 3px #C9C9C9);
         margin: 0;
         overflow: auto;
-        padding: 5px;
+        padding-top: 5px;
 
         li.track {
 
           $thumb-image-size:30px;
 
-          div {
+          div.wrapper {
             position: relative;
             white-space:nowrap;
             overflow: hidden;
-            padding-top: 5px;
+            padding-top: 5px; padding-left: 3px;
+            border-bottom: solid 1px #CCC;
           } 
 
           .image-wrapper {
@@ -320,14 +321,13 @@ header{
             text-align: left;
             margin-left: 1.2*$thumb-image-size;
             color: #CCC;
-            border-bottom: dotted 1px #CCC;
             font-size: 0.7em;
             margin-top: -6px;
           }
 
           .playback-button{
             @include transition(ease 0.5s);
-            position: absolute; right: 0; top:11px;
+            position: absolute; right: 0; top:6px;
             background-color: $standard-background-color;
             padding: 2px;
             height: 30px;
@@ -343,7 +343,7 @@ header{
             opacity: 0; @include icon-delete-small();
             position: absolute;
             left: 0;
-            top: 14px;
+            top: 9px;
             height: 30px;
             width: 30px;
             cursor: pointer;
@@ -365,8 +365,11 @@ header{
           };
 
           &.playing{
+            div {
+              background-color: #DDD;
+            }
             .play{ display: none; }
-            .pause{ display: block; }
+            .pause{ display: block; background-color: #DDD; }
           }
 
         }
