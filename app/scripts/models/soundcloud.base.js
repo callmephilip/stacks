@@ -1,5 +1,5 @@
 /*
-    SoudCloudCollection is a base class class for SC API based Backbone Collections 
+    SoundCloudCollection is a base class class for SC API based Backbone Collections 
         - currently is only read only
         - child classes provide resource urls, data is then accessible through a standard fetch   
 
