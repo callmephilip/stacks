@@ -1,7 +1,6 @@
 /*
     Application url mapping
         - landing 
-        - login (trigger SC connection dialog)
         - stacks (main application screen)
 */
 
@@ -10,7 +9,6 @@ define(['backbone'],
         var ApplicationRouter = Backbone.Router.extend({
 
             routes: {
-                "login": "login",
                 "stacks": "stacks",
                 "*actions": "landing"
             },
@@ -26,10 +24,6 @@ define(['backbone'],
 
             landing : function(){
                 this.navigate("/", {trigger:true});
-            },
-
-            login : function(){
-                this.navigate("/login", {trigger:true});
             },
 
             main : function(){

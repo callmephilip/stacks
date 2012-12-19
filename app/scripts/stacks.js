@@ -6,9 +6,8 @@
     NB: the main router is not actaully started when testing
 */
 
-define(['jquery','underscore',"soundcloud", "router", 
-    "views/screens/login", "views/screens/stacks", "models/playlist"],
-    function($,_,SC, ApplicationRouter,LoginView,StacksView, Playlist){
+define(['jquery','underscore',"soundcloud", "router", "views/screens/stacks", "models/playlist"],
+    function($,_,SC, ApplicationRouter,StacksView,Playlist){
 
         /*
             Get SoundCloud application settings based on the host
@@ -34,20 +33,14 @@ define(['jquery','underscore',"soundcloud", "router",
         /*
             Main Application class
                 - assumes it is supposed to use #container to display content
-                - needs a router and a login view as configuration parameters
+                - requires a router
         */
-        var Application = function(router,loginView){
+        var Application = function(router){
             this.router = router;
-            this.loginView = loginView;
             this.root = $("#container");
 
             this.router.on("route:landing", this.landing, this);
-            this.router.on("route:login", this.login, this);
             this.router.on("route:stacks", this.main,this);
-
-            this.loginView.on("login", function(){
-                this.router.login();
-            }, this);
         };
 
         Application.prototype = {
@@ -77,26 +70,11 @@ define(['jquery','underscore',"soundcloud", "router",
             },
 
             /* 
-                landing screen : say hi, get people to log in to SC (if needed) 
+                landing screen 
+                    -> jump to the main screen
             */
             landing : function(){
-                if(SC.isConnected()){
-                    // TODO: figure out why this does NOT work
-                    // seems like auth data is not persisted between page loads
-                    //this.router.navigate("/stacks", {trigger:true});
-                    this.router.main();
-                } else {
-                    this.root.html(this.loginView.render());
-                }
-            },
-
-            /* 
-                pop SC connection dialog 
-            */
-            login : function(){
-                SC.connect(_.bind(function(){
-                    this.router.main();
-                },this));
+                this.router.main();
             },
 
             /*
@@ -121,7 +99,7 @@ define(['jquery','underscore',"soundcloud", "router",
             
             /*
                 returns application instance
-                    - if router or loginView are not provided, use defaults: router and screens/login
+                    - if router is not provided, use defaults: router
             */
             getApplication : function(router,loginView){
 
@@ -131,7 +109,7 @@ define(['jquery','underscore',"soundcloud", "router",
 
 
                 if((typeof router === 'undefined') || (typeof loginView === 'undefined')){
-                    __instance = new Application(new ApplicationRouter(), new LoginView());
+                    __instance = new Application(new ApplicationRouter());
                 }   
 
                 return __instance;
