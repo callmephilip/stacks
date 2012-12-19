@@ -81,35 +81,6 @@ header{
 }
 
 
-
-
-.github-ribbon{
-
-  background-color:#121621;
-  top:3.2em; right:-3.7em;
-
-  @include transform(rotate(45deg));
-  @include box-shadow(#1d212e 0 0 0 1px inset, #fff 0 0 2px 1px inset, #888 0 0 1em);
-
-  color:rgba(255,255,255,0.90);
-  display:block;
-  padding:.6em 3.5em;
-  position:absolute; z-index: 15000;
-  font:bold .82em sans-serif;
-
-  text:{
-    align:center;
-    decoration:none;
-    shadow:1px -1px 8px rgba(0,0,0,0.60);
-  }
-
-  &:visited{
-    color:rgba(255,255,255,0.90);
-  }
-
-  @include user-select(none);
-}
-
 #container {
     background-color: $standard-background-color;
     margin:-10px 0; padding: 0;
