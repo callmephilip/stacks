@@ -15,8 +15,8 @@ Playlists are technically queues (as oppposed to stacks). Project name refers to
 ```
 stack noun \ˈstak\
 
-2 a : an orderly pile or heap
-  b : a large quantity or number
+- an orderly pile or heap
+- a large quantity or number
 ```
 
 source : http://www.merriam-webster.com/dictionary/stack
