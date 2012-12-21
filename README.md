@@ -2,6 +2,23 @@
 
 'Stacks' is a SoundCloud based playlist manager. Live demo is [here](http://callmephilip.github.com/stacks/). 
 
+## Note to SoundClouders
+
+I have been continuing to work on Stacks after submitting the challenge:
+    - polishing things here and there
+    - bookmarklet feature
+
+## Note to CS majors
+
+Playlists are technically queues (as oppposed to stacks). Project name refers to a less geeky meaning of the term
+
+```
+a : an orderly pile or heap
+b : a large quantity or number
+```
+
+source : http://www.merriam-webster.com/dictionary/stack
+
 ## Project structure
 
 Fairly standard [yeoman](http://yeoman.io/) setup. When runnig locally, make sure to link to app/scripts from the test directory
