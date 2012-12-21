@@ -5,8 +5,8 @@
 ## Note to SoundClouders
 
 I have been continuing to work on Stacks after submitting the challenge:
-    * polishing things here and there
-    * bookmarklet feature
+* polishing things here and there
+* bookmarklet feature
 
 ## Note to CS majors
 
