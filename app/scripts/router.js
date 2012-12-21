@@ -10,6 +10,7 @@ define(['backbone'],
 
             routes: {
                 "stacks": "stacks",
+                "bookmark/:url" : "bookmark",
                 "*actions": "landing"
             },
 
