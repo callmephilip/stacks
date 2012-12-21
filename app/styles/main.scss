@@ -407,6 +407,6 @@ header{
   height: 30px;
   width: 30px;
   @include box-shadow(-7px 0px 17px rgba(50, 50, 50, 0.33));
-  font-size: 0;
+  font-size: 0; text-decoration: none;
 }
 
