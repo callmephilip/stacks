@@ -149,6 +149,40 @@ define(["jquery", "underscore", "models/playlist", "models/track"], function($, 
                 });
             });
 
+            it("supports getBookmarkingPlaylist method", function(){
+                expect(Playlist.Collection).to.respondTo("getBookmarkingPlaylist");
+            });
+
+            it("supports getBookmarkingPlaylistTitle method", function(){
+                expect(Playlist.Collection).to.respondTo("getBookmarkingPlaylistTitle");
+            });
+
+            it("supports getBookmarkingPlaylistDescription method", function(){
+                expect(Playlist.Collection).to.respondTo("getBookmarkingPlaylistDescription");
+            });
+
+            it("creates a bookmarking playlist in getBookmarkingPlaylist if it's not available", function(done){
+                $.when(c.getBookmarkingPlaylist()).done(function(playlist){
+                    expect(playlist).to.be.ok;
+                    expect(playlist.get("title")).to.equal(c.getBookmarkingPlaylistTitle());
+                    expect(playlist.get("description")).to.equal(c.getBookmarkingPlaylistDescription());
+                    done();
+                });
+            });
+
+            it("reuses an existing bookmarking playlist in getBookmarkingPlaylist", function(done){
+                var bookmarkplaylist = c.createPlaylist(
+                    c.getBookmarkingPlaylistTitle(),
+                    c.getBookmarkingPlaylistDescription()
+                );
+
+                $.when(c.getBookmarkingPlaylist()).done(function(playlist){
+                    expect(playlist).to.be.ok;
+                    expect(playlist.get("id")).to.equal(bookmarkplaylist.get("id"));
+                    done();
+                });
+            });
+
         });
 
         describe("Model", function(done){

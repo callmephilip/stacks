@@ -115,6 +115,42 @@ define(["jquery", "underscore","backbone", "models/track", "backbone.localStorag
             return dfd.promise();
         },
 
+        /*
+            Gets or creates a special playlist dedicated to storing bookmarked tracks
+                - playlist title and description are available through 
+        */
+        getBookmarkingPlaylist : function(){
+            var dfd = $.Deferred();
+
+            $.when(this.getAllPlaylists()).done(_.bind(function(playlists){
+
+                var bookmarkPlaylist = _.find(playlists,_.bind(function(pl){
+                    return pl.get("title").toLowerCase() === 
+                        this.getBookmarkingPlaylistTitle().toLowerCase();
+                },this)); 
+
+                if(typeof bookmarkPlaylist === 'undefined'){
+                    bookmarkPlaylist = this.createPlaylist(
+                        this.getBookmarkingPlaylistTitle(),
+                        this.getBookmarkingPlaylistDescription()
+                    );
+                }
+
+                dfd.resolve(bookmarkPlaylist);
+
+            },this));
+
+            return dfd.promise();
+        },
+
+        getBookmarkingPlaylistTitle : function(){
+            return "Bookmarks";
+        },
+
+        getBookmarkingPlaylistDescription : function(){
+            return "These are your bookmarked tracks, hombre";
+        },
+
         getDefaultTitle : function(){
             return "Click edits titles";
         },
