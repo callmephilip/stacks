@@ -6,8 +6,9 @@
     NB: the main router is not actaully started when testing
 */
 
-define(['jquery','underscore',"soundcloud", "router", "views/screens/stacks", "models/playlist"],
-    function($,_,SC, ApplicationRouter,StacksView,Playlist){
+define(['jquery','underscore',"soundcloud", "router", 
+    "views/screens/stacks", "models/playlist", "models/bookmark"],
+    function($,_,SC, ApplicationRouter,StacksView,Playlist, Bookmarks){
 
         /*
             Get SoundCloud application settings based on the host
@@ -41,6 +42,7 @@ define(['jquery','underscore',"soundcloud", "router", "views/screens/stacks", "m
 
             this.router.on("route:landing", this.landing, this);
             this.router.on("route:stacks", this.main,this);
+            this.router.on("route:bookmark", this.bookmark, this);
         };
 
         Application.prototype = {
@@ -64,6 +66,18 @@ define(['jquery','underscore',"soundcloud", "router", "views/screens/stacks", "m
                 }
 
                 if(!this.testing()){
+                    
+                    //add a bookmarking component
+                    try{
+                        $("#bookmarker").attr("href",
+                            "javascript:(function(){window.open('" + 
+                                window.location.href.split("#")[0] + "#/bookmark/" + 
+                            "'+encodeURIComponent(window.location.href));})();"
+                        );
+                    }catch(e){
+                        console.error("Failed to integrate the bookmarker",e);
+                    }
+
                     //no router when running tests
                     this.router.run();
                 }
@@ -85,6 +99,43 @@ define(['jquery','underscore',"soundcloud", "router", "views/screens/stacks", "m
             main : function(){
                 var stacks = new StacksView({ playlists : new Playlist.Collection() });
                 this.root.html(stacks.render());
+            },
+
+            /*
+                processing a bookmarking request
+            */
+            bookmark : function(url){
+                try{
+                    $.when(Bookmarks.resolve(decodeURIComponent(url))).done(_.bind(function(bookmark){
+                        
+                        if(bookmark.isTrack()){
+                                
+                            //grab a dedicated bookmark playlist and add a new track
+                            $.when(new Playlist.Collection().getBookmarkingPlaylist()).done(
+                                _.bind(function(playlist){
+                                    console.log("resolved", bookmark);
+                                    var trackData = bookmark.data;
+                                    playlist.addTrack(trackData.id, trackData.title, trackData.user.username, 
+                                        trackData.artwork_url ? trackData.artwork_url : trackData.user_avatar_url);
+                                
+
+                                    alert(trackData.title+" added to "+playlist.get("title"));
+
+                                }, this)
+                            );
+
+                        } else {
+                            alert("Cannot bookmark this. Sorry.");
+                        }
+                        
+                    },this)).fail(function(e){
+                        alert("Cannot bookmark this. Sorry.");
+                    });
+                }catch(e){
+                    alert("This does not look like a Soundcloud track url. Cannot compute.");
+                }
+
+                this.router.main();
             },
 
             /* are we running tests? */
