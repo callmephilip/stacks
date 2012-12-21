@@ -1,0 +1,47 @@
+@mixin appearance (){
+  0% { @include transform(scale(0.1,0.1)); }
+  100% { @include transform(scale(1,1)); }
+}
+
+@mixin departure (){
+  0% { @include transform(scale(1,1)); opacity:1; }
+  100% { @include transform(scale(0.1,0.1)); opacity:0; }
+}
+
+@-webkit-keyframes hello-there { @include appearance(); }
+@keyframes  hello-there { @include appearance(); }
+@-moz-keyframes  hello-there { @include appearance(); }
+@-o-keyframes  hello-there { @include appearance(); }
+
+@-webkit-keyframes bye-bye { @include departure(); }
+@keyframes  bye-bye { @include departure(); }
+@-moz-keyframes  bye-bye { @include departure(); }
+@-o-keyframes  bye-bye { @include departure(); }
+
+
+@mixin make-animation($animation-name, $animation-speed:0.5s, $count:1){
+    -webkit-transform-origin:50% 50%;
+    -webkit-animation-name: $animation-name;
+    -webkit-animation-duration: $animation-speed;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-out;
+
+    transform-origin:50% 50%;
+    animation-name: $animation-name;
+    animation-duration: $animation-speed;
+    animation-iteration-count: $count;
+    animation-timing-function: ease-out;
+
+    -moz-transform-origin:50% 50%;
+    -moz-animation-name: $animation-name;
+    -moz-animation-duration: $animation-speed;
+    -moz-animation-iteration-count: $count;
+    -moz-animation-timing-function: ease-out;
+
+    -o-transform-origin:50% 50%;
+    -o-animation-name: $animation-name;
+    -o-animation-duration: $animation-speed;
+    -o-animation-iteration-count: $count;
+    -o-animation-timing-function: ease-out;
+}
+
