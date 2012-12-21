@@ -12,6 +12,10 @@ define(["underscore","models/bookmark","soundcloud"],function(_,Bookmarks,SC){
                 expect(Bookmarks).to.respondTo("get");
             });
 
+            it('exports resolve function', function(){
+                expect(Bookmarks).to.respondTo("resolve");
+            });
+
             it('exports Bookmark class', function(){
                 expect(Bookmarks.Bookmark).to.be.ok;
             });
@@ -116,6 +120,24 @@ define(["underscore","models/bookmark","soundcloud"],function(_,Bookmarks,SC){
                     expect(bookmark.data).to.not.be.ok;
                     done();
                 });
+
+            });
+
+            it('knows if it refers to a track', function(){
+                var urlToResolve = "https://soundcloud.com/jadedlondon/this-is-not-a-song",
+                    bookmark = new Bookmarks.Bookmark(urlToResolve),
+                    dataValues = [null, { kind : "track" }, {errors : [] }];
+
+                expect(bookmark.isTrack()).to.be.false;
+                
+                bookmark.data = dataValues[0];
+                expect(bookmark.isTrack()).to.be.false;
+
+                bookmark.data = dataValues[1];
+                expect(bookmark.isTrack()).to.be.true;
+
+                bookmark.data = dataValues[2];
+                expect(bookmark.isTrack()).to.be.false;
 
             });
 
