@@ -5,16 +5,18 @@
 ## Note to SoundClouders
 
 I have been continuing to work on Stacks after submitting the challenge:
-    - polishing things here and there
-    - bookmarklet feature
+    * polishing things here and there
+    * bookmarklet feature
 
 ## Note to CS majors
 
 Playlists are technically queues (as oppposed to stacks). Project name refers to a less geeky meaning of the term
 
 ```
-a : an orderly pile or heap
-b : a large quantity or number
+stack noun \ˈstak\
+
+2 a : an orderly pile or heap
+  b : a large quantity or number
 ```
 
 source : http://www.merriam-webster.com/dictionary/stack
