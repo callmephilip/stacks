@@ -135,8 +135,12 @@ define(["jquery", "underscore","backbone", "models/track", "backbone.localStorag
                         this.getBookmarkingPlaylistDescription()
                     );
                 }
-
-                dfd.resolve(bookmarkPlaylist);
+                
+                //backbone localstorage sync needs some extra time to sort things out
+                //TODO: investigate why and fix. workaround for now
+                setTimeout(function(){
+                    dfd.resolve(bookmarkPlaylist);
+                },100);
 
             },this));
 
