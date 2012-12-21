@@ -116,26 +116,28 @@ define(['jquery','underscore',"soundcloud", "router",
                                     console.log("resolved", bookmark);
                                     var trackData = bookmark.data;
                                     playlist.addTrack(trackData.id, trackData.title, trackData.user.username, 
-                                        trackData.artwork_url ? trackData.artwork_url : trackData.user_avatar_url);
-                                
+                                        trackData.artwork_url ? trackData.artwork_url : trackData.user_avatar_url);                             
 
                                     alert(trackData.title+" added to "+playlist.get("title"));
+
+                                    this.router.main();
 
                                 }, this)
                             );
 
                         } else {
-                            alert("Cannot bookmark this. Sorry.");
+                            alert("Cannot add this to Stacks. Sorry.");
+                            this.router.main();
                         }
                         
-                    },this)).fail(function(e){
-                        alert("Cannot bookmark this. Sorry.");
-                    });
+                    },this)).fail(_.bind(function(e){
+                        alert("Cannot add this to Stacks. Sorry.");
+                        this.router.main();
+                    },this));
                 }catch(e){
                     alert("This does not look like a Soundcloud track url. Cannot compute.");
+                    this.router.main();
                 }
-
-                this.router.main();
             },
 
             /* are we running tests? */
