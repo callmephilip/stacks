@@ -38,5 +38,5 @@ See app/scripts/vendor and test/lib for more details.
 
 ## Visuals
 
-Homemade SASS. Beautiful icons are made by [Jamison Wieser](http://thenounproject.com/jamison/). Header background is [Norwegian Rose](http://subtlepatterns.com/norwegian-rose/) by Fredrik Scheide.  
+Homemade SASS. Beautiful icons are made by [Jamison Wieser](http://thenounproject.com/jamison/) and [Mateo Zlatar](http://thenounproject.com/mateozlatar). Header background is [Norwegian Rose](http://subtlepatterns.com/norwegian-rose/) by Fredrik Scheide.  
 
