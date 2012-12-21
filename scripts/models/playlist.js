@@ -135,8 +135,10 @@ define(["jquery", "underscore","backbone", "models/track", "backbone.localStorag
                         this.getBookmarkingPlaylistDescription()
                     );
                 }
-
-                dfd.resolve(bookmarkPlaylist);
+                
+                setTimeout(function(){
+                    dfd.resolve(bookmarkPlaylist);
+                },100);
 
             },this));
 
