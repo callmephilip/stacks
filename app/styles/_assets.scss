@@ -3,6 +3,7 @@ $img_pause : '../images/icons/pause.png';
 $img_add : '../images/icons/add.png';
 $img_delete : '../images/icons/delete.png';
 $img_search : '../images/icons/search.png';
+$img_bookmark : '../images/icons/bookmark.png';
 $img_soundcloud : '../images/icons/soundcloud.png';
 $img_bg : '../images/bg/norwegian_rose.png';;
 
@@ -51,6 +52,11 @@ $img_bg : '../images/bg/norwegian_rose.png';;
 @mixin icon-add(){
     @include icon-base(60px,60px);
     background-image:url($img_add);
+}
+
+@mixin icon-bookmark(){
+    @include icon-base(30px,30px);
+    background-image:url($img_bookmark);
 }
 
 @mixin icon-search-small(){
