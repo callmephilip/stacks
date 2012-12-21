@@ -10,7 +10,7 @@ I have been continuing to work on Stacks after submitting the challenge:
 
 ## Note to CS majors
 
-Playlists are technically queues (as oppposed to stacks). Project name refers to a less geeky meaning of the term
+Most playlists are technically FIFO queues (as oppposed to LIFO stacks). Project name refers to a less geeky meaning of the term
 
 ```
 stack noun \ˈstak\
